@@ -1,0 +1,28 @@
+rules:
+  - id: LS-SSH-001
+    name: SSH Brute Force
+    source: ssh
+    condition: failed_password_count_by_ip >= threshold
+    mitre: T1110
+    severity: HIGH
+
+  - id: LS-HTTP-001
+    name: Suspicious High Request Volume
+    source: apache
+    condition: request_count_by_ip >= threshold
+    mitre: T1498
+    severity: MEDIUM
+
+  - id: LS-HTTP-002
+    name: HTTP Error Spike
+    source: apache
+    condition: http_4xx_5xx_count_by_ip >= threshold
+    mitre: T1595
+    severity: MEDIUM
+
+  - id: LS-HTTP-003
+    name: Admin Path Scanning
+    source: apache
+    condition: admin_path_keyword_count >= 3
+    mitre: T1595
+    severity: HIGH
