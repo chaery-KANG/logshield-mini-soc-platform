@@ -220,6 +220,126 @@ git remote add origin https://github.com/chaery-KANG/logshield-mini-soc-platform
 git push -u origin main
 ```
 
+# 실행 결과 (Demo)
+
+## 1. 로그 업로드
+
+Apache Access Log 및 SSH Auth Log 업로드를 지원합니다.
+
+본 시연에서는 Apache Access Log를 업로드하여 보안 이벤트를 분석하였습니다.
+
+![Log Upload](./images/log-upload.png)
+
+---
+
+## 2. 로그 파싱 (Parsing)
+
+업로드된 로그를 구조화하여 분석 가능한 데이터 형태로 변환합니다.
+
+수집 정보
+
+* Source IP
+* Timestamp
+* HTTP Method
+* URL
+* Status Code
+* Raw Log
+
+![Parsed Logs](./images/parsed-logs.png)
+
+---
+
+## 3. 이벤트 정규화 (Normalization)
+
+다양한 로그 형식을 공통 이벤트 스키마로 변환합니다.
+
+정규화 항목
+
+* timestamp
+* source_type
+* src_ip
+* event_name
+* username
+* url
+* status
+
+![Normalized Events](./images/normalized-events.png)
+
+---
+
+## 4. 탐지 엔진 (Detection Engine)
+
+규칙 기반 탐지 엔진을 활용하여 보안 이벤트를 식별합니다.
+
+탐지 규칙
+
+* LS-HTTP-001 : Suspicious High Request Volume
+* LS-HTTP-002 : HTTP Error Spike
+* LS-HTTP-003 : Admin Path Scanning
+
+분석 결과
+
+* Total Events : 12
+* Unique IPs : 3
+* Detection Count : 3
+* High Risk Events : 2
+
+![Detection Results](./images/detection-results.png)
+
+---
+
+## 5. Dashboard
+
+탐지 결과를 시각화하여 공격 패턴을 한눈에 파악할 수 있습니다.
+
+제공 기능
+
+* Severity Distribution
+* Attack Type Distribution
+* Top Source IPs
+
+![Dashboard](./images/dashboard.png)
+
+---
+
+## 6. Incident Report
+
+탐지된 이벤트를 기반으로 Incident Report를 자동 생성합니다.
+
+포함 정보
+
+* Executive Summary
+* Detection Details
+* Risk Level
+* Recommendation
+
+![Incident Report](./images/incident-report.png)
+
+---
+
+## 분석 결과 요약
+
+샘플 Apache 로그 분석 결과, IP 주소 **192.168.0.20** 에서 다수의 관리자 페이지 접근 시도가 탐지되었습니다.
+
+주요 탐지 이벤트
+
+* Admin Path Scanning
+* HTTP Error Spike
+* Suspicious High Request Volume
+
+공격자는 다음과 같은 민감 경로에 접근을 시도하였습니다.
+
+* /admin
+* /login
+* /wp-admin
+* /.env
+* /config.php
+* /phpmyadmin
+* /backup.zip
+
+이를 통해 공격자가 웹 애플리케이션에 대한 정보 수집(Reconnaissance) 및 취약점 탐색을 수행한 것으로 판단할 수 있습니다.
+
+
 ## Future Improvements
 
 - Windows Event Log 지원
