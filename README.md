@@ -1,8 +1,88 @@
 # LogShield Mini SOC Platform
 
-보안관제(SOC) 환경을 모의 구현한 팀프로젝트형 Mini SIEM 로그 분석 플랫폼입니다.
+## 프로젝트 개요
 
-Apache Access Log와 SSH Auth Log를 업로드하면 로그를 파싱하고, 공통 스키마로 정규화한 뒤, 규칙 기반 탐지 엔진을 통해 보안 이벤트를 식별합니다. 탐지 결과는 MITRE ATT&CK 프레임워크와 매핑되며, 위험도 점수와 Incident Report로 정리됩니다.
+최근 다양한 웹 서비스와 서버 환경에서는
+Apache, Nginx, SSH 등에서 생성되는 로그를 통해
+보안 위협을 탐지하고 대응합니다.
+
+하지만 단순 로그 데이터만으로는
+이상 행위를 식별하기 어렵기 때문에
+보안관제센터(SOC)에서는 로그 수집,
+정규화, 탐지, 분석, 대응의 과정을 수행합니다.
+
+본 프로젝트는 실제 SOC(Security Operations Center)의
+로그 분석 프로세스를 모의 구현하기 위해 개발한
+Mini SIEM(Security Information and Event Management) 플랫폼입니다.
+
+## 개발 동기
+
+대학교에서 정보보호를 전공하며
+침해사고 대응과 로그 분석을 학습하였지만
+
+실제 SOC 환경의 로그 분석 흐름을
+직접 구현해본 경험은 부족하다고 느꼈습니다.
+
+이에 따라
+
+- 로그 수집
+- 로그 정규화
+- 공격 패턴 탐지
+- MITRE ATT&CK 매핑
+- 위험도 분석
+- 사고 리포트 생성
+
+과정을 하나의 플랫폼으로 구현해보고자
+본 프로젝트를 진행하였습니다.
+
+## 프로젝트 목표
+
+본 프로젝트의 목표는
+실제 보안관제센터의 업무 흐름을
+간단하게 재현하는 것입니다.
+
+사용자는 Apache Access Log와
+SSH Auth Log를 업로드할 수 있으며
+
+시스템은 로그를 분석하여
+
+- Brute Force 공격
+- 관리자 페이지 스캔
+- 비정상적인 요청 증가
+- 오류 집중 발생
+
+등을 탐지합니다.
+
+탐지 결과는 MITRE ATT&CK와 연결하여
+공격 유형을 식별하고
+Incident Report를 자동 생성합니다.
+
+## 담당 역할
+
+### Log Parser
+
+- Apache 로그 파서 구현
+- SSH Auth 로그 파서 구현
+
+### Detection Engine
+
+- SSH Brute Force 탐지
+- Admin Path Scanning 탐지
+- HTTP Error Spike 탐지
+
+### SOC Analysis
+
+- MITRE ATT&CK 매핑
+- 위험도 산정 로직 구현
+
+### Dashboard
+
+- Streamlit 기반 시각화 구현
+
+### Reporting
+
+- Incident Report 자동 생성
+- CSV Export 기능 구현
 
 ## Features
 
